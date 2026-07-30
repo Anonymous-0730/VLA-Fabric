@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="VLA-Fabric connects complete arm-local vision-language-action agents through explicit, communication-efficient coordination interfaces.">
+  <meta name="theme-color" content="#101214">
+  <title>VLA-Fabric | Networked VLA Agents</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="VLA-Fabric home">
+      <span class="brand-mark" aria-hidden="true">VF</span>
+      <span>VLA-Fabric</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#architecture">Architecture</a>
+      <a href="#evaluation">Evaluation</a>
+      <a href="#communication">Communication</a>
+      <a href="#artifacts">Artifacts</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" aria-hidden="true">
+        <img src="assets/images/single-agent.png" alt="">
+        <img src="assets/images/two-agent.png" alt="">
+        <img src="assets/images/three-agent.png" alt="">
+        <img src="assets/images/four-agent.png" alt="">
+      </div>
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Communication-efficient embodied intelligence</p>
+        <h1 id="hero-title">VLA-Fabric</h1>
+        <p class="hero-lede">Communication-Efficient Coordination for Scalable Networks of VLA Agents</p>
+        <p class="hero-summary">
+          One complete VLA agent controls each arm. Explicit intermediate-representation
+          messages coordinate teams from one to four agents without expanding a fixed joint-action model.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="assets/paper/vla-fabric-paper.pdf">Read the paper</a>
+          <a class="button button-secondary" href="#evaluation">View results</a>
+        </div>
+      </div>
+      <a class="hero-next" href="#overview">Architecture and evidence below</a>
+    </section>
+
+    <section class="overview band" id="overview" aria-labelledby="overview-title">
+      <div class="section-heading">
+        <p class="eyebrow">From a fixed policy to an agent fabric</p>
+        <h2 id="overview-title">Local action ownership, explicit coordination</h2>
+      </div>
+      <div class="overview-layout">
+        <div class="overview-copy">
+          <p>
+            Centralized multi-arm policies bind observations, coordination, and action dimensions
+            to one computation graph. VLA-Fabric instead treats every arm-side VLA as a complete
+            action-producing endpoint. Team size changes the communication graph, not an agent's
+            local action interface.
+          </p>
+          <dl class="fact-list">
+            <div>
+              <dt>1 arm</dt>
+              <dd>one independently executable VLA agent</dd>
+            </div>
+            <div>
+              <dt>3 paths</dt>
+              <dd>common semantics, private K/V, and action intent</dd>
+            </div>
+            <div>
+              <dt>8 layers</dt>
+              <dd>the fixed NSPR profile used across team sizes</dd>
+            </div>
+          </dl>
+        </div>
+        <figure class="motivation-figure">
+          <img src="assets/images/motivation.png" alt="Comparison of fixed single and bimanual VLA policies with a composable network of VLA agents.">
+          <figcaption>Agent-wise composition replaces a fixed joint-action interface.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="architecture band band-muted" id="architecture" aria-labelledby="architecture-title">
+      <div class="section-heading">
+        <p class="eyebrow">System architecture</p>
+        <h2 id="architecture-title">Three messages connect complete policies</h2>
+        <p>
+          Raw observations and local queries remain on-device. Coordination crosses the agent
+          boundary only through named representations whose traffic and timing can be measured.
+        </p>
+      </div>
+      <figure class="architecture-figure">
+        <img src="assets/images/architecture.png" alt="VLA-Fabric architecture showing arm-local VLA agents and the common-state, private K/V, and action-intent communication paths.">
+      </figure>
+      <div class="message-grid">
+        <article class="message-item message-common">
+          <span class="message-index">01</span>
+          <h3>Common semantics</h3>
+          <p>Synchronizes shared task and scene context at selected transformer boundaries.</p>
+        </article>
+        <article class="message-item message-kv">
+          <span class="message-index">02</span>
+          <h3>Private K/V</h3>
+          <p>Supplies role-ordered peer context while local observations and queries stay private.</p>
+        </article>
+        <article class="message-item message-action">
+          <span class="message-index">03</span>
+          <h3>Action intent</h3>
+          <p>Exchanges compact late-stage control context immediately before local decoding.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="scale band" id="evaluation" aria-labelledby="scale-title">
+      <div class="section-heading">
+        <p class="eyebrow">One interface across team sizes</p>
+        <h2 id="scale-title">Single-arm, bimanual, and multi-agent manipulation</h2>
+        <p>
+          The same agent abstraction is evaluated from one to four arms. Each panel shows the
+          actual task state rather than an illustrative rendering.
+        </p>
+      </div>
+      <div class="task-grid">
+        <article class="task-item">
+          <div class="task-image"><img src="assets/images/single-agent.png" alt="Single-arm LIBERO manipulation task."></div>
+          <div class="task-copy">
+            <p class="task-count">1 agent</p>
+            <h3>LIBERO</h3>
+            <p>SingleVLA policy; communication is not applicable.</p>
+          </div>
+        </article>
+        <article class="task-item">
+          <div class="task-image"><img src="assets/images/two-agent.png" alt="Two-agent ALOHA bimanual manipulation task."></div>
+          <div class="task-copy">
+            <p class="task-count">2 agents</p>
+            <h3>ALOHA coordination</h3>
+            <p>Handover box, Shoes Table, and Handover Mic.</p>
+          </div>
+        </article>
+        <article class="task-item">
+          <div class="task-image"><img src="assets/images/three-agent.png" alt="Three-agent Camera Alignment and Stack Cube manipulation setup."></div>
+          <div class="task-copy">
+            <p class="task-count">3 agents</p>
+            <h3>Collaborative assembly</h3>
+            <p>Camera Alignment and Stack Cube.</p>
+          </div>
+        </article>
+        <article class="task-item">
+          <div class="task-image"><img src="assets/images/four-agent.png" alt="Four-agent Take Photo manipulation task."></div>
+          <div class="task-copy">
+            <p class="task-count">4 agents</p>
+            <h3>Take Photo</h3>
+            <p>Four local policies coordinate a compositional task.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="results-layout">
+        <div>
+          <h3>Closed-loop task capability</h3>
+          <p class="results-intro">
+            Distributed agents remain close to the centralized TwinVLA reference on ALOHA and
+            substantially outperform the reported RoboFactory DP baseline as team size grows.
+          </p>
+        </div>
+        <div class="table-wrap" role="region" aria-label="Task success table" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th>Agents</th>
+                <th>Task</th>
+                <th>Reference</th>
+                <th>VLA-Fabric</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2</td><td>Handover box</td><td>76.0%</td><td><strong>75.0%</strong></td></tr>
+              <tr><td>2</td><td>Shoes Table</td><td>83.0%</td><td><strong>78.0%</strong></td></tr>
+              <tr><td>2</td><td>Handover Mic</td><td>94.5%</td><td><strong>81.5%</strong></td></tr>
+              <tr><td>3</td><td>Camera Alignment</td><td>19.0%</td><td><strong>100.0%</strong></td></tr>
+              <tr><td>3</td><td>Stack Cube</td><td>22.0%</td><td><strong>75.0%</strong></td></tr>
+              <tr><td>4</td><td>Take Photo</td><td>20.0%</td><td><strong>96.5%</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="table-note">
+        Two-agent references use TwinVLA. Three- and four-agent references use RoboFactory DP
+        trained with 150 demonstrations. Protocol details are provided in the paper.
+      </p>
+    </section>
+
+    <section class="communication band band-dark" id="communication" aria-labelledby="communication-title">
+      <div class="section-heading">
+        <p class="eyebrow">Communication audit and screening</p>
+        <h2 id="communication-title">Reduce bytes and synchronization together</h2>
+        <p>
+          Quantization lowers payload but retains a dense synchronization schedule. A hidden
+          workspace removes representation redundancy; NSPR then screens synchronization layers
+          against downstream action impact and paired closed-loop safety.
+        </p>
+      </div>
+      <div class="metric-strip">
+        <div><strong>88.8-89.0%</strong><span>traffic reduction versus Raw</span></div>
+        <div><strong>&le;3.5 pp</strong><span>success difference across tasks</span></div>
+        <div><strong>2-4 agents</strong><span>one fixed NSPR-8 mask</span></div>
+      </div>
+      <div class="evidence-grid">
+        <figure>
+          <img src="assets/images/communication-tradeoff.png" alt="Communication trade-off plots for task success, critical path, and planning latency against traffic.">
+          <figcaption>Representation structure and synchronization frequency jointly determine latency.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/cross-task.png" alt="Cross-task comparison of Raw, Full, and NSPR-8 traffic, communication latency, and success.">
+          <figcaption>The fixed NSPR-8 profile transfers from two to four agents.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="artifacts band" id="artifacts" aria-labelledby="artifacts-title">
+      <div class="section-heading">
+        <p class="eyebrow">Anonymous research artifacts</p>
+        <h2 id="artifacts-title">Paper and reproducibility material</h2>
+      </div>
+      <div class="artifact-list">
+        <article>
+          <div>
+            <p class="artifact-type">PDF</p>
+            <h3>Anonymous manuscript</h3>
+            <p>Ten-page INFOCOM draft with nine pages of body content and one page of references.</p>
+          </div>
+          <a class="button button-primary" href="assets/paper/vla-fabric-paper.pdf">Open PDF</a>
+        </article>
+        <article>
+          <div>
+            <p class="artifact-type">Code</p>
+            <h3>Implementation and configurations</h3>
+            <p>Training, distributed evaluation, communication auditing, and NSPR screening.</p>
+          </div>
+          <span class="artifact-status">Release pending</span>
+        </article>
+        <article>
+          <div>
+            <p class="artifact-type">Data</p>
+            <h3>Evaluation manifests</h3>
+            <p>Paired conditions, summary tables, and communication-profile metadata.</p>
+          </div>
+          <span class="artifact-status">Release pending</span>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>VLA-Fabric</strong> connects complete VLA agents through explicit network interfaces.</p>
+    <p>Anonymous project page for peer review.</p>
+  </footer>
+</body>
+</html>
