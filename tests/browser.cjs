@@ -32,6 +32,27 @@ async function main() {
       assert(bounds.colored > 500, `Canvas is blank at ${width}`);
       assert.equal(await page.locator('table, #evaluation').count(), 0);
       assert.equal(await page.locator('.hero-links a').count(), 2);
+      const huggingFace = page.getByRole('button', { name: 'Hugging Face', exact: true });
+      const tooltip = page.getByRole('tooltip', { includeHidden: true });
+      assert.equal(await huggingFace.count(), 1);
+      assert(!(await tooltip.isVisible()));
+      await huggingFace.hover();
+      assert(await tooltip.isVisible(), 'Hover should show the resource notice');
+      await page.mouse.move(0, 0);
+      assert(!(await tooltip.isVisible()), 'Pointer exit should dismiss the notice');
+      await huggingFace.focus();
+      assert(await tooltip.isVisible(), 'Keyboard focus should show the notice');
+      await huggingFace.press('Escape');
+      assert(!(await tooltip.isVisible()), 'Escape should dismiss the notice');
+      const currentURL = page.url();
+      await huggingFace.click();
+      assert.equal(page.url(), currentURL, 'The resource button must not navigate');
+      assert(await tooltip.isVisible());
+      const tipBounds = await tooltip.boundingBox();
+      assert(tipBounds.x >= 0 && tipBounds.x + tipBounds.width <= width, 'Tooltip overflow');
+      await page.screenshot({ path: path.join(output, `huggingface-${width}.png`) });
+      await page.locator('#hero-title').click();
+      assert(!(await tooltip.isVisible()), 'Outside click should dismiss the notice');
       const sections = await page.locator('main > section[id]').evaluateAll(
         nodes => nodes.map(node => node.id));
       assert.deepEqual(sections, ['overview', 'architecture', 'communication', 'demos', 'resources']);

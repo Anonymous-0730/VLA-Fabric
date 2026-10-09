@@ -51,6 +51,18 @@ class SiteTests(unittest.TestCase):
         self.assertNotIn('Release pending', html)
         self.assertNotRegex(html, r'/data/private|/home/|file://')
 
+    def test_hugging_face_is_a_non_navigating_resource_notice(self):
+        html = (ROOT / 'index.html').read_text()
+        elements = Elements(html).elements
+        buttons = [attrs for tag, attrs in elements
+                   if tag == 'button' and attrs.get('id') == 'huggingface-button']
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(buttons[0]['type'], 'button')
+        self.assertNotIn('href', buttons[0])
+        self.assertEqual(buttons[0]['aria-describedby'], 'huggingface-tooltip')
+        self.assertIn('Hugging Face', html)
+        self.assertIn('Full models and related resources will be uploaded progressively.', html)
+
     def test_homepage_is_a_research_narrative_not_an_evaluation_dashboard(self):
         html = (ROOT / 'index.html').read_text()
         elements = Elements(html).elements

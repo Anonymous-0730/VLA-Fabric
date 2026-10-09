@@ -18,6 +18,27 @@
   }
   document.querySelectorAll('[data-icon]').forEach(node => node.replaceWith(icon(node.dataset.icon)));
 
+  const resourceNotice = document.getElementById('huggingface-notice');
+  if (resourceNotice) {
+    const trigger = document.getElementById('huggingface-button');
+    const show = () => { resourceNotice.dataset.open = 'true'; };
+    const hide = () => { resourceNotice.dataset.open = 'false'; };
+    resourceNotice.dataset.enhanced = 'true';
+    resourceNotice.addEventListener('pointerenter', show);
+    resourceNotice.addEventListener('pointerleave', () => {
+      if (document.activeElement !== trigger) hide();
+    });
+    trigger.addEventListener('focus', show);
+    trigger.addEventListener('blur', hide);
+    trigger.addEventListener('click', show);
+    document.addEventListener('click', event => {
+      if (!resourceNotice.contains(event.target)) hide();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') hide();
+    });
+  }
+
   // Tabs share keyboard behavior; content remains readable without JavaScript.
   function tabs(selector, activate) {
     const buttons = [...document.querySelectorAll(selector)];
