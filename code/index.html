@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code | VLA-Fabric</title>
+  <link rel="stylesheet" href="../styles.css"><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <script src="../assets/vendor/icons.js" defer></script><script src="../site.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><div class="header-inner"><a class="wordmark" href="../index.html">VLA-Fabric<span class="wordmark-block" aria-hidden="true"></span></a><a class="header-code" href="../index.html"><i data-icon="arrow-left" aria-hidden="true"></i>Project page</a></div></header>
+  <main class="wrap code-page">
+    <p class="eyebrow">Code &amp; results</p><h1>VLA-Fabric</h1>
+    <p class="lead">Tools for analyzing communication efficiency, comparing paired rollout outcomes, and reproducing the cross-task figures.</p>
+    <a class="button primary" href="../assets/downloads/vla-fabric-tools.zip" download><i data-icon="download" aria-hidden="true"></i>Download tools</a>
+    <ul class="file-list">
+      <li><a href="analysis.py" download>Communication and paired-outcome analysis</a><span>Python standard library</span></li>
+      <li><a href="plot_results.py" download>Cross-task plotting</a><span>Python + Matplotlib</span></li>
+      <li><a href="data/results.json" download>Cross-task results</a><span>Success, traffic, and strict timing</span></li>
+      <li><a href="EVALUATION.md">Evaluation results and protocols</a><span>Task capability and communication ablations</span></li>
+      <li><a href="README.md">Usage and evaluation notes</a><span>README</span></li>
+      <li><a href="tests/test_analysis.py" download>Analysis tests</a><span>unittest</span></li>
+      <li><a href="LICENSE">License</a><span>MIT</span></li>
+    </ul>
+    <h2>Analyze communication profiles</h2>
+    <pre><code>python analysis.py profiles
+python analysis.py profiles --reference Full --candidate NSPR-8</code></pre>
+    <p>Reports traffic and critical-path reductions against the selected reference, and success changes in percentage points.</p>
+    <h2>Compare paired outcomes</h2>
+    <pre><code>python analysis.py paired reference.csv candidate.csv</code></pre>
+    <p>Each CSV contains <code>condition_id</code> and binary <code>success</code>. The utility checks that conditions match before constructing the paired outcome counts.</p>
+    <h2>Reproduce the cross-task figure</h2>
+    <pre><code>python plot_results.py --output cross-task.pdf</code></pre>
+    <p>Success uses paired-200 evaluations. Timing uses separate strict timing-50 runs. Source values and measurement definitions accompany the results.</p>
+    <p class="release-note">This release includes communication-analysis and evaluation utilities. Additional implementation components will be released progressively.</p>
+  </main>
+  <footer><div class="wrap"><a class="wordmark" href="../index.html">VLA-Fabric</a><p>Communication between complete VLA agents.</p></div></footer>
+</body>
+</html>
