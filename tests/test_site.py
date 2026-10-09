@@ -60,8 +60,18 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(buttons[0]['type'], 'button')
         self.assertNotIn('href', buttons[0])
         self.assertEqual(buttons[0]['aria-describedby'], 'huggingface-tooltip')
+        tooltip = next(attrs for _, attrs in elements
+                       if attrs.get('id') == 'huggingface-tooltip')
+        self.assertIn('hidden', tooltip)
         self.assertIn('Hugging Face', html)
         self.assertIn('Full models and related resources will be uploaded progressively.', html)
+
+    def test_behavior_assets_have_a_cache_version(self):
+        elements = Elements((ROOT / 'index.html').read_text()).elements
+        for name, attribute in [('styles.css', 'href'), ('site.js', 'src')]:
+            asset = next(attrs[attribute] for _, attrs in elements
+                         if urlsplit(attrs.get(attribute, '')).path == name)
+            self.assertTrue(urlsplit(asset).query, f'{name} must bypass old cached assets')
 
     def test_homepage_is_a_research_narrative_not_an_evaluation_dashboard(self):
         html = (ROOT / 'index.html').read_text()

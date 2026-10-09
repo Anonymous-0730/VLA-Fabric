@@ -37,11 +37,13 @@ async function main() {
       assert.equal(await huggingFace.count(), 1);
       assert(!(await tooltip.isVisible()));
       await huggingFace.hover();
-      assert(await tooltip.isVisible(), 'Hover should show the resource notice');
+      assert(!(await tooltip.isVisible()), 'Hover alone must not show the resource notice');
       await page.mouse.move(0, 0);
       assert(!(await tooltip.isVisible()), 'Pointer exit should dismiss the notice');
       await huggingFace.focus();
-      assert(await tooltip.isVisible(), 'Keyboard focus should show the notice');
+      assert(!(await tooltip.isVisible()), 'Focus alone must not show the notice');
+      await huggingFace.press('Enter');
+      assert(await tooltip.isVisible(), 'Keyboard activation should show the notice');
       await huggingFace.press('Escape');
       assert(!(await tooltip.isVisible()), 'Escape should dismiss the notice');
       const currentURL = page.url();
@@ -51,6 +53,12 @@ async function main() {
       const tipBounds = await tooltip.boundingBox();
       assert(tipBounds.x >= 0 && tipBounds.x + tipBounds.width <= width, 'Tooltip overflow');
       await page.screenshot({ path: path.join(output, `huggingface-${width}.png`) });
+      await page.mouse.move(0, 0);
+      assert(!(await tooltip.isVisible()), 'Pointer exit must dismiss even while the button keeps focus');
+      await huggingFace.hover();
+      assert(!(await tooltip.isVisible()), 'Pointer re-entry must not reopen the notice');
+      await huggingFace.click();
+      assert(await tooltip.isVisible());
       await page.locator('#hero-title').click();
       assert(!(await tooltip.isVisible()), 'Outside click should dismiss the notice');
       const sections = await page.locator('main > section[id]').evaluateAll(

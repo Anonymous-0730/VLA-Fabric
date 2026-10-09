@@ -21,14 +21,12 @@
   const resourceNotice = document.getElementById('huggingface-notice');
   if (resourceNotice) {
     const trigger = document.getElementById('huggingface-button');
-    const show = () => { resourceNotice.dataset.open = 'true'; };
-    const hide = () => { resourceNotice.dataset.open = 'false'; };
-    resourceNotice.dataset.enhanced = 'true';
-    resourceNotice.addEventListener('pointerenter', show);
-    resourceNotice.addEventListener('pointerleave', () => {
-      if (document.activeElement !== trigger) hide();
+    const tooltip = document.getElementById('huggingface-tooltip');
+    const show = () => { tooltip.hidden = false; };
+    const hide = () => { tooltip.hidden = true; };
+    trigger.addEventListener('pointerleave', event => {
+      if (event.pointerType !== 'touch') hide();
     });
-    trigger.addEventListener('focus', show);
     trigger.addEventListener('blur', hide);
     trigger.addEventListener('click', show);
     document.addEventListener('click', event => {
