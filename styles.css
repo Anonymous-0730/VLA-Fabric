@@ -85,6 +85,17 @@ thead th:nth-child(2), thead th:nth-child(3) { text-align: left; }
 tbody tr:last-child > * { border-bottom: 0; }
 .group-start > * { border-top: 1px solid #b5c0ca; }
 .ours { background: #eef4f9; color: var(--blue-dark); font-weight: 600; }
+.task-capability { margin-top: 48px; }
+.task-capability h3 { margin-bottom: 22px; }
+.capability-table { table-layout: fixed; }
+.capability-table .task-column { width: 40%; }
+.capability-table .reference-column { width: 36%; }
+.capability-table .fabric-column { width: 24%; }
+.capability-table th, .capability-table td { white-space: normal; }
+.capability-table thead th:not(:first-child) { text-align: right; }
+.capability-table .team-heading th { width: auto; padding: 17px 14px 8px; color: var(--muted); font-size: 12px; font-weight: 600; border-top: 1px solid #cdd5dd; border-bottom: 1px solid #e8ecef; }
+.capability-table .reference-policy { color: var(--muted); font-size: 12px; margin-right: 20px; }
+.capability-table .reference-value { display: inline-block; min-width: 40px; }
 .highlight-row { background: #eef4f9; color: var(--blue-dark); }
 .highlight-row th, .highlight-row td { font-weight: 600; }
 .ablation-table td, .ablation-table thead th:not(:first-child) { text-align: right; }
@@ -188,6 +199,14 @@ pre { overflow-x: auto; background: var(--soft); border: 1px solid var(--line); 
   .resource-links { grid-template-columns: 1fr; gap: 0; } .resource-links > a { padding: 17px 0; } .resources { padding-bottom: 30px; }
   footer > .wrap { flex-wrap: wrap; } footer p { order: 3; flex-basis: 100%; } footer { padding: 20px 0; }
   table { font-size: 13px; } th, td { padding: 10px 12px; } .code-page h1 { font-size: 36px; }
+  .task-capability { margin-top: 34px; }
+  .capability-table .task-column { width: 38%; }
+  .capability-table .reference-column { width: 35%; }
+  .capability-table .fabric-column { width: 27%; }
+  .capability-table th, .capability-table td { padding-inline: 7px; }
+  .capability-table thead th { font-size: 11px; }
+  .capability-table .team-heading th { padding-inline: 7px; }
+  .capability-table .reference-policy { display: block; margin: 0 0 3px; font-size: 11px; }
   .file-list li { display: block; } .file-list span { display: block; margin-top: 4px; }
 }
 @media (max-width: 360px) {

@@ -30,7 +30,21 @@ async function main() {
       assert(bounds.content <= bounds.viewport, `Page overflow at ${width}: ${JSON.stringify(bounds)}`);
       assert(bounds.heroBottom < height, `No next-section hint at ${width}: ${bounds.heroBottom}`);
       assert(bounds.colored > 500, `Canvas is blank at ${width}`);
-      assert.equal(await page.locator('table, #evaluation').count(), 0);
+      assert.equal(await page.locator('#evaluation').count(), 0);
+      assert.equal(await page.locator('table').count(), 1);
+      const taskResults = await page.locator('#task-success-table tr[data-task]').evaluateAll(
+        rows => rows.map(row => [row.dataset.task,
+          row.querySelector('.reference-policy').textContent.trim(),
+          row.querySelector('.reference-value').textContent.trim(),
+          row.querySelector('.ours').textContent.trim()]));
+      assert.deepEqual(taskResults, [
+        ['Handover Box', 'TwinVLA', '76.0', '75.0'],
+        ['Shoes Table', 'TwinVLA', '83.0', '78.0'],
+        ['Handover Mic', 'TwinVLA', '94.5', '81.5'],
+        ['Camera Alignment', 'RoboFactory DP', '19.0', '100.0'],
+        ['Stack Cube', 'RoboFactory DP', '22.0', '75.0'],
+        ['Take Photo', 'RoboFactory DP', '20.0', '96.5'],
+      ]);
       assert.equal(await page.locator('.hero-links a').count(), 2);
       const huggingFace = page.getByRole('button', { name: 'Hugging Face', exact: true });
       const tooltip = page.getByRole('tooltip', { includeHidden: true });
@@ -84,6 +98,9 @@ async function main() {
         await image.scrollIntoViewIfNeeded();
         await image.evaluate(img => img.decode());
       }
+      const tableSize = await page.locator('#task-success-table').boundingBox();
+      assert(tableSize.x >= 0 && tableSize.x + tableSize.width <= width, 'Success table must fit the viewport');
+      await page.locator('#task-capability').screenshot({ path: path.join(output, `success-table-${width}.png`) });
       await page.locator('[data-metric="success_pct"]').click();
       assert.match(await page.locator('.task-chart').last().textContent(), /97\.5/);
       assert.equal(await page.locator('#metric-success').getAttribute('aria-selected'), 'true');

@@ -11,8 +11,8 @@ font dependencies, or runtime network requests. Paper and Code are the primary
 resource links; Code opens this repository's `code/` directory on GitHub.
 For offline access to the tools and downloads, open `code/index.html`.
 
-The homepage focuses on the idea, architecture, communication method, and task
-demonstrations. Detailed result tables and protocol notes live in
+The homepage focuses on the idea, architecture, a concise task-success comparison,
+communication method, and task demonstrations. Detailed ablations and protocol notes live in
 [`code/EVALUATION.md`](code/EVALUATION.md).
 
 ## Verification

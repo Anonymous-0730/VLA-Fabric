@@ -80,9 +80,20 @@ class SiteTests(unittest.TestCase):
                     if tag == 'section' and 'id' in attrs]
         self.assertEqual(sections, [
             'overview', 'architecture', 'communication', 'demos', 'resources'])
-        self.assertNotIn('<table', html)
+        tables = [attrs for tag, attrs in elements if tag == 'table']
+        self.assertEqual([table.get('id') for table in tables], ['task-success-table'])
+        self.assertLess(html.index('id="task-success-table"'), html.index('id="communication"'))
         self.assertNotIn('#evaluation', html)
         self.assertNotIn('>Results</', html)
+
+    def test_task_capability_uses_the_published_full_results(self):
+        html = (ROOT / 'index.html').read_text()
+        rows = [attrs for tag, attrs in Elements(html).elements
+                if tag == 'tr' and 'data-task' in attrs]
+        self.assertEqual([row['data-task'] for row in rows], [
+            'Handover Box', 'Shoes Table', 'Handover Mic',
+            'Camera Alignment', 'Stack Cube', 'Take Photo'])
+        self.assertIn('150 demonstrations', html)
 
     def test_evaluation_details_are_available_with_the_code(self):
         document = ROOT / 'code/EVALUATION.md'

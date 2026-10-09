@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <title>VLA-Fabric | Communication-Efficient Coordination</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=hf-click-2">
+  <link rel="stylesheet" href="styles.css?v=task-success-1">
   <script src="assets/vendor/icons.js" defer></script><script src="assets/results.js" defer></script><script src="site.js?v=hf-click-2" defer></script>
 </head>
 <body>
@@ -61,6 +61,32 @@
         <article><span class="path-line action" aria-hidden="true"></span><h3>Action intent</h3><p>Late-stage peer information before each agent decodes its own action.</p></article>
       </div>
       <p class="section-note">The same organization supports centralized training and process- and device-isolated inference. Team-size-specific training is still required; a fixed team can learn multiple tasks.</p>
+      <div class="task-capability" id="task-capability">
+        <h3>Task capability across team sizes.</h3>
+        <div class="table-scroll">
+          <table class="capability-table" id="task-success-table" aria-describedby="task-success-note">
+            <caption>Task success <span>(%)</span></caption>
+            <colgroup><col class="task-column"><col class="reference-column"><col class="fabric-column"></colgroup>
+            <thead><tr><th scope="col">Task</th><th scope="col">Reference policy</th><th scope="col">VLA-Fabric</th></tr></thead>
+            <tbody>
+              <tr class="team-heading"><th colspan="3" scope="rowgroup">2 arms</th></tr>
+              <tr data-task="Handover Box"><th scope="row">Handover Box</th><td><span class="reference-policy">TwinVLA</span><span class="reference-value">76.0</span></td><td class="ours">75.0</td></tr>
+              <tr data-task="Shoes Table"><th scope="row">Shoes Table</th><td><span class="reference-policy">TwinVLA</span><span class="reference-value">83.0</span></td><td class="ours">78.0</td></tr>
+              <tr data-task="Handover Mic"><th scope="row">Handover Mic</th><td><span class="reference-policy">TwinVLA</span><span class="reference-value">94.5</span></td><td class="ours">81.5</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="team-heading"><th colspan="3" scope="rowgroup">3 arms</th></tr>
+              <tr data-task="Camera Alignment"><th scope="row">Camera Alignment</th><td><span class="reference-policy">RoboFactory DP</span><span class="reference-value">19.0</span></td><td class="ours">100.0</td></tr>
+              <tr data-task="Stack Cube"><th scope="row">Stack Cube</th><td><span class="reference-policy">RoboFactory DP</span><span class="reference-value">22.0</span></td><td class="ours">75.0</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="team-heading"><th colspan="3" scope="rowgroup">4 arms</th></tr>
+              <tr data-task="Take Photo"><th scope="row">Take Photo</th><td><span class="reference-policy">RoboFactory DP</span><span class="reference-value">20.0</span></td><td class="ours">96.5</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="section-note" id="task-success-note">VLA-Fabric uses Full communication. RoboFactory Diffusion Policy (DP) results use 150 demonstrations. Baseline sources and evaluation protocols are given in the <a href="assets/paper/vla-fabric-paper.pdf">paper</a>.</p>
+      </div>
     </div></section>
     <section class="section" id="communication" aria-labelledby="communication-title"><div class="wrap">
       <div class="section-heading"><p class="eyebrow">Communication efficiency</p><h2 id="communication-title">Keep the coordination. Reduce the exchange.</h2><p>Making communication explicit exposes a new cost. VLA-Fabric reduces both representation redundancy and synchronization frequency, with closed-loop task behavior guiding which exchanges to retain.</p></div>
